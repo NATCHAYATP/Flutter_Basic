@@ -10,10 +10,9 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 300, //กำหนดกรอบไว้ จะได้เลื่อนแค่ตรงกรอบ
-      child: SingleChildScrollView( //หน้านี้เป็นหน้าแสดงลิสสินค้า ให้เลื่อได้จะได้เลื่อนดูข้อมูลได้ ไม่มีเออเร่อ
-        child: Column(
-                children: transactions.map((tx) {
-                  return Card(
+      child: ListView.builder( 
+        itemBuilder: (ctx, index) { //ctx ตือลิสรายการที่สร้างทั้งหมด index คือจำนวนรายการทั้งหมด ไอ้คำสั่งนี้เอาไว้รัยวนลูป โดยแสดงออกมาทีละนิด
+          return Card(
                     child: Row(
                       children: <Widget>[
                         Container(
@@ -29,7 +28,7 @@ class TransactionList extends StatelessWidget {
                           ),
                           padding: EdgeInsets.all(10),
                           child: Text(
-                            '\$${tx.amount}',
+                            '\$${transactions[index].amount.toStringAsFixed(2)}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -41,14 +40,14 @@ class TransactionList extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              tx.title,
+                              transactions[index].title,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              DateFormat.yMMMd().format(tx.date),
+                              DateFormat.yMMMd().format(transactions[index].date),
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
@@ -58,8 +57,9 @@ class TransactionList extends StatelessWidget {
                       ],
                     ),
                   );
-                }).toList(),
-              ),
+
+        } ,
+        itemCount: transactions.length, //จำนวนการ์ดทั้งหมดที่มี
       ),
     );
   }
