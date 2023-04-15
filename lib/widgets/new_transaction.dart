@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget { //เปลี่ยนเป็น full เพราะในเวอชั่นเก่ามันไม่เก็บสถานะ แต่ก่อนหน้านี้เราทำงานได้ปกตินะแค่เปลี่ยนตามเขาเฉยๆ
   final Function addTx;
+
+  NewTransaction(this.addTx); 
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
+
   final amountController = TextEditingController();
 
-  NewTransaction(this.addTx); //เป็นการผูกค่าตัวแปรเข้าไปในตัวแปร
+ //เป็นการผูกค่าตัวแปรเข้าไปในตัวแปร
   void submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
@@ -14,10 +22,13 @@ class NewTransaction extends StatelessWidget {
       return; //ถ้าเข้าเงื่อนไขคือไม่ผ่าน ไม่เพิ่มค่า
     }
 
-    addTx(
+    widget.addTx(
       enteredTitle,
       enteredAmount,
     );
+
+    Navigator.of(context).pop(); 
+    //ช่วยให้ปิดป้อปอัพอัตโนมัติ โดยเด้งหน้า contact ขึ้นมา เขาบอกว่า context มันจะรู้จาก state ตอนเราประกาศ class
   }
 
   @override
