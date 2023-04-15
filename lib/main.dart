@@ -23,6 +23,13 @@ final amountController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: Text('Flutter App'),
+        //ปุ่มข้างๆ Flitter App
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {}, 
+            icon: Icon(Icons.add),
+            ),
+        ],
       ),
       body: SingleChildScrollView( //ใส่เพื่อให้ตอนพิมพ์มันไม่แจ้งเออเร่อหน้าเต็ม เพราะมันเลื่อนได้
         child: Column(
@@ -40,6 +47,13 @@ final amountController = TextEditingController();
             UserTransactions()
           ],
         ),
+      ),
+      //เพิ่มปุ่มแบบลอยตัว
+      //ถ้าไม่อยากกำหนดตำแหน่งปุ่มก็ใช้อันที่ไม่มี location ได้
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
       ),
     );
   }
